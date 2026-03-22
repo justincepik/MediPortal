@@ -45,7 +45,7 @@ const fhirGet = async <T>(path: string): Promise<T> => {
         throw new Error(`FHIR GET ${path} fehlgeschlagen (${res.status})`);
     }
 
-    return res.json() as Promise<T>;
+    return await res.json() as Promise<T>;
 };
 
 // ── Write: Store transformed resources ────────
