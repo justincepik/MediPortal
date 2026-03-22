@@ -1,0 +1,2 @@
+export type { MioMeta, FhirMeta, FhirCoding, FhirCodeableConcept, FhirHumanName, FhirContactPoint, FhirAddress, FhirIdentifier, FhirQuantity, FhirBundleEntry, FhirBundle, FhirPatient, FhirDevice, FhirObservation, FhirDiagnosticReport, ApiError, UploadResult, PatientDetail, } from "./src/fhir.types";
+//# sourceMappingURL=index.d.ts.map
