@@ -6,7 +6,7 @@ import type {
     FhirObservation,
     FhirPatient,
     PatientDetail
-} from "../types/fhir.types";
+} from "@mediportal/shared";
 
 const FHIR_SERVER = process.env["FHIR_SERVER_URL"] ?? "http://localhost:8080/fhir";
 

@@ -1,11 +1,6 @@
-// ─────────────────────────────────────────────
-//  usePatientDetail Hook
-//  Lädt alle Daten eines Patienten vom Backend.
-// ─────────────────────────────────────────────
-
 import {useEffect, useState} from "react";
-import {fetchPatientDetail} from "../services/api.service.detail";
-import type {PatientDetail} from "../types/fhir.types.ts";
+import {fetchPatientDetail} from "../services/api.service";
+import type {PatientDetail} from "@mediportal/shared";
 
 interface UsePatientDetailResult {
     detail: PatientDetail | null;

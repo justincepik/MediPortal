@@ -1,7 +1,7 @@
 // =============================================================================
 //  FHIR R4 Types (MIO TM 1.0.0 konform)
 //
-//  Alle Interfaces bilden die tatsaechlich verwendeten FHIR-Ressourcen ab
+//  Alle Interfaces bilden die tatsächlich verwendeten FHIR-Ressourcen ab
 //  und sind auf MIO Telemedizinisches Monitoring 1.0.0 ausgerichtet.
 //
 //  Profil-Doku: https://hub.kbv.de/display/TM1X0X0

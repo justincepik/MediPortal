@@ -1,7 +1,7 @@
 import { Fhir } from "fhir-tool";
-import type { FhirPatient } from "../types/fhir.types";
+import type { FhirPatient } from "@mediportal/shared";
 
-// Singleton — einmal initialisieren, überall wiederverwenden
+// Singleton
 const fhirClient = new Fhir();
 
 // ── Types ─────────────────────────────────────

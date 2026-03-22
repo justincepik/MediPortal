@@ -1,6 +1,6 @@
-import { type FC, useEffect } from "react";
-import { usePatientDetail } from "../hooks/usePatientDetail";
-import type {FhirDevice, FhirDiagnosticReport, FhirObservation, FhirPatient} from "../types/fhir.types";
+import {type FC, useEffect} from "react";
+import {usePatientDetail} from "../hooks/usePatientDetail";
+import type {FhirDevice, FhirDiagnosticReport, FhirObservation, FhirPatient} from "@mediportal/shared"
 
 // ── Helpers ───────────────────────────────────
 
@@ -22,14 +22,14 @@ const obsValue = (o: FhirObservation): string => {
 
 // ── Section components ────────────────────────
 
-const Section: FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
+const Section: FC<{ title: string; children: React.ReactNode }> = ({title, children}) => (
     <div className="detail-section">
         <h3 className="detail-section-title">{title}</h3>
         {children}
     </div>
 );
 
-const Row: FC<{ label: string; value: string }> = ({ label, value }) => (
+const Row: FC<{ label: string; value: string }> = ({label, value}) => (
     <div className="detail-row">
         <span className="detail-label">{label}</span>
         <span className="detail-value">{value}</span>
@@ -38,44 +38,44 @@ const Row: FC<{ label: string; value: string }> = ({ label, value }) => (
 
 // ── Stammdaten ────────────────────────────────
 
-const PatientSection: FC<{ patient: FhirPatient }> = ({ patient }) => {
-    const name    = patient.name[0];
+const PatientSection: FC<{ patient: FhirPatient }> = ({patient}) => {
+    const name = patient.name[0];
     const address = patient.address?.[0];
-    const phone   = patient.telecom?.find((t) => t.system === "phone")?.value;
-    const email   = patient.telecom?.find((t) => t.system === "email")?.value;
+    const phone = patient.telecom?.find((t) => t.system === "phone")?.value;
+    const email = patient.telecom?.find((t) => t.system === "email")?.value;
 
     return (
         <Section title="Stammdaten">
-            <Row label="Name"          value={name ? `${name.given.join(" ")} ${name.family}` : "—"} />
-            <Row label="Geburtsdatum"  value={fmt(patient.birthDate)} />
-            <Row label="Geschlecht"    value={patient.gender} />
-            <Row label="Status"        value={patient.active ? "Aktiv" : "Inaktiv"} />
+            <Row label="Name" value={name ? `${name.given.join(" ")} ${name.family}` : "—"}/>
+            <Row label="Geburtsdatum" value={fmt(patient.birthDate)}/>
+            <Row label="Geschlecht" value={patient.gender}/>
+            <Row label="Status" value={patient.active ? "Aktiv" : "Inaktiv"}/>
             {address && (
                 <>
-                    <Row label="Adresse"   value={address.line?.join(", ") ?? "—"} />
-                    <Row label="Stadt"     value={`${address.postalCode ?? ""} ${address.city ?? ""}`.trim()} />
-                    <Row label="Land"      value={address.country ?? "—"} />
+                    <Row label="Adresse" value={address.line?.join(", ") ?? "—"}/>
+                    <Row label="Stadt" value={`${address.postalCode ?? ""} ${address.city ?? ""}`.trim()}/>
+                    <Row label="Land" value={address.country ?? "—"}/>
                 </>
             )}
-            {phone && <Row label="Telefon" value={phone} />}
-            {email && <Row label="E-Mail"  value={email} />}
-            <Row label="Letztes Update" value={fmt(patient.meta.lastUpdated)} />
+            {phone && <Row label="Telefon" value={phone}/>}
+            {email && <Row label="E-Mail" value={email}/>}
+            <Row label="Letztes Update" value={fmt(patient.meta.lastUpdated)}/>
         </Section>
     );
 };
 
 // ── Device ────────────────────────────────────
 
-const DeviceSection: FC<{ devices: FhirDevice[] }> = ({ devices }) => (
+const DeviceSection: FC<{ devices: FhirDevice[] }> = ({devices}) => (
     <Section title={`Geraeteinformationen (${devices.length})`}>
         {devices.length === 0
             ? <p className="detail-empty">Keine Geraete gefunden.</p>
             : devices.map((d) => (
                 <div key={d.id} className="detail-card">
-                    <Row label="ID"      value={d.identifier?.[0]?.value ?? d.id} />
-                    <Row label="Typ"     value={d.type?.coding[0]?.display ?? d.type?.text ?? "—"} />
-                    <Row label="Modell"  value={d.modelNumber ?? "—"} />
-                    <Row label="Update"  value={fmt(d.meta?.lastUpdated)} />
+                    <Row label="ID" value={d.identifier?.[0].value ?? d.id}/>
+                    <Row label="Typ" value={d.type?.coding[0].display ?? d.type?.coding[0].code ?? "—"}/>
+                    <Row label="Modell" value={d.modelNumber ?? "—"}/>
+                    <Row label="Update" value={fmt(d.meta?.lastUpdated)}/>
                 </div>
             ))
         }
@@ -84,7 +84,7 @@ const DeviceSection: FC<{ devices: FhirDevice[] }> = ({ devices }) => (
 
 // ── Observations ──────────────────────────────
 
-const ObservationSection: FC<{ observations: FhirObservation[] }> = ({ observations }) => (
+const ObservationSection: FC<{ observations: FhirObservation[] }> = ({observations}) => (
     <Section title={`Messwerte & Beobachtungen (${observations.length})`}>
         {observations.length === 0
             ? <p className="detail-empty">Keine Messwerte gefunden.</p>
@@ -120,17 +120,17 @@ const ObservationSection: FC<{ observations: FhirObservation[] }> = ({ observati
 
 // ── DiagnosticReport ──────────────────────────
 
-const DiagnosticReportSection: FC<{ reports: FhirDiagnosticReport[] }> = ({ reports }) => (
+const DiagnosticReportSection: FC<{ reports: FhirDiagnosticReport[] }> = ({reports}) => (
     <Section title={`Befundberichte (${reports.length})`}>
         {reports.length === 0
             ? <p className="detail-empty">Keine Berichte gefunden.</p>
             : reports.map((r) => (
                 <div key={r.id} className="detail-card">
-                    <Row label="Typ"            value={r.code.text ?? r.code.coding[0]?.display ?? "—"} />
-                    <Row label="Status"         value={r.status} />
-                    <Row label="Datum"          value={fmt(r.effectiveDateTime)} />
-                    <Row label="Erstellt"       value={fmt(r.issued)} />
-                    <Row label="Ergebnisse"     value={`${r.result?.length ?? 0} Observationen`} />
+                    <Row label="Typ" value={r.code.text ?? r.code.coding[0]?.display ?? "—"}/>
+                    <Row label="Status" value={r.status}/>
+                    <Row label="Datum" value={fmt(r.effectiveDateTime)}/>
+                    <Row label="Erstellt" value={fmt(r.issued)}/>
+                    <Row label="Ergebnisse" value={`${r.result?.length ?? 0} Observationen`}/>
                 </div>
             ))
         }
@@ -330,12 +330,14 @@ interface PatientDetailModalProps {
     onClose: () => void;
 }
 
-const PatientDetailModal: FC<PatientDetailModalProps> = ({ patientId, onClose }) => {
-    const { detail, loading, error } = usePatientDetail(patientId);
+const PatientDetailModal: FC<PatientDetailModalProps> = ({patientId, onClose}) => {
+    const {detail, loading, error} = usePatientDetail(patientId);
 
     // Close on Escape key
     useEffect(() => {
-        const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+        const handler = (e: KeyboardEvent) => {
+            if (e.key === "Escape") onClose();
+        };
         window.addEventListener("keydown", handler);
         return () => window.removeEventListener("keydown", handler);
     }, [onClose]);
@@ -343,7 +345,7 @@ const PatientDetailModal: FC<PatientDetailModalProps> = ({ patientId, onClose })
     if (!patientId) return null;
 
     const patient = detail?.patient;
-    const name    = patient?.name[0];
+    const name = patient?.name[0];
     const fullName = name ? `${name.given.join(" ")} ${name.family}` : "Patient";
 
     return (
@@ -367,7 +369,7 @@ const PatientDetailModal: FC<PatientDetailModalProps> = ({ patientId, onClose })
                     <div className="modal-body">
                         {loading && (
                             <div className="modal-loading">
-                                <div className="spinner" />
+                                <div className="spinner"/>
                                 Patientendaten werden geladen ...
                             </div>
                         )}
@@ -378,10 +380,10 @@ const PatientDetailModal: FC<PatientDetailModalProps> = ({ patientId, onClose })
 
                         {detail && !loading && (
                             <>
-                                <PatientSection       patient={detail.patient} />
-                                <DeviceSection        devices={detail.devices} />
-                                <ObservationSection   observations={detail.observations} />
-                                <DiagnosticReportSection reports={detail.diagnosticReports} />
+                                <PatientSection patient={detail.patient}/>
+                                <DeviceSection devices={detail.devices}/>
+                                <ObservationSection observations={detail.observations}/>
+                                <DiagnosticReportSection reports={detail.diagnosticReports}/>
                             </>
                         )}
                     </div>

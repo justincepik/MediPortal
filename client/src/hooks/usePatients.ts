@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { fetchPatients } from "../services/api.service";
-import type { FhirPatient } from "../types/fhir.types";
+import type { FhirPatient } from "@mediportal/shared";
 
 interface UsePatientsResult {
     patients: FhirPatient[];

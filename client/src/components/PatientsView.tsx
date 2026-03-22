@@ -1,5 +1,5 @@
 import { type FC, useState } from "react";
-import type { FhirPatient } from "../types/fhir.types";
+import type { FhirPatient } from "@mediportal/shared";
 import StatusBadge from "./StatusBadge";
 import PatientDetailModal from "./PatientDetailModal";
 

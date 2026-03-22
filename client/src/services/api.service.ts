@@ -1,12 +1,4 @@
-// ─────────────────────────────────────────────
-//  API Service
-//  Alle HTTP-Calls zum Backend an einem Ort.
-//  Komponenten und Hooks importieren nur diese
-//  Funktionen — nie fetch() direkt verwenden.
-// ─────────────────────────────────────────────
-
-import type {FhirBundle, FhirPatient, UploadResult} from "../types/fhir.types";
-import type {PatientDetail} from "../types/fhir.extended.types.ts";
+import type {FhirBundle, FhirPatient, PatientDetail, UploadResult} from "@mediportal/shared";
 
 const BASE_URL = "http://localhost:3000/api";
 
@@ -27,10 +19,10 @@ export const fetchPatientDetail = (id: string): Promise<PatientDetail> =>
     fetch(`${BASE_URL}/patients/${id}/detail`)
         .then((res) => handleResponse<PatientDetail>(res));
 
-export const fetchPatients = (activeOnly?: boolean): Promise<FhirBundle<FhirPatient>> => {
+export const fetchPatients = async (activeOnly?: boolean): Promise<FhirBundle<FhirPatient>> => {
     const query = activeOnly ? "?active=true" : "";
-    return fetch(`${BASE_URL}/patients${query}`)
-        .then((res) => handleResponse<FhirBundle<FhirPatient>>(res));
+    const res = await fetch(`${BASE_URL}/patients${query}`);
+    return await handleResponse<FhirBundle<FhirPatient>>(res);
 };
 
 export const fetchPatientById = (id: string): Promise<FhirPatient> =>
@@ -58,9 +50,9 @@ export const updatePatient = (
 
 // ── Upload ────────────────────────────────────
 
-export const uploadFhirFile = (file: File): Promise<UploadResult> => {
+export const uploadFhirFile = async (file: File): Promise<UploadResult> => {
     const form = new FormData();
     form.append("file", file);
-    return fetch(`${BASE_URL}/upload`, {method: "POST", body: form})
-        .then((res) => handleResponse<UploadResult>(res));
+    const res = await fetch(`${BASE_URL}/upload`, {method: "POST", body: form});
+    return await handleResponse<UploadResult>(res);
 };

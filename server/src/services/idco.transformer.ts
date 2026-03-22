@@ -1,7 +1,7 @@
 // =============================================================================
 //  Modul 2: Transformation — IDCO -> FHIR (MIO-konform)
 //
-//  Bildet die geparsten IDCO-Segmente gemaess Tabelle 1 der Bachelorarbeit
+//  Bildet die geparsten IDCO-Segmente gemäß Tabelle 1 der Bachelorarbeit
 //  auf FHIR R4-Ressourcen ab — mit MIO TM 1.0.0 Profilreferenzen:
 //
 //    PID          -> Patient   (KBV_PR_MIO_TELE_Patient)
@@ -9,7 +9,7 @@
 //    OBX (Werte)  -> Observation (KBV_PR_MIO_TELE_Observation_Free)
 //    OBR          -> DiagnosticReport (KBV_PR_MIO_TELE_DiagnosticReport)
 //
-//  MIO TM 1.0.0 Pflichtfelder gemaess:
+//  MIO TM 1.0.0 Pflichtfelder gemäß:
 //  https://hub.kbv.de/display/TM1X0X0/Telemedizinisches+Monitoring+1.0.0
 // =============================================================================
 
@@ -21,8 +21,8 @@ import type {
     FhirDevice,
     FhirDiagnosticReport,
     FhirObservation,
-    FhirPatient
-} from "../types/fhir.types";
+    FhirPatient,
+} from "@mediportal/shared";
 import {DEVICE_CODES, MIO_PROFILES, SNOMED_VERSION, SYSTEMS} from "../util/constants";
 import {mapGender, mioMeta, resolveSystem, toIsoDate, toIsoDateTime} from "../util/functions";
 
