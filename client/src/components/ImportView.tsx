@@ -1,6 +1,6 @@
 import {type FC, useState, useRef, type DragEvent, type ChangeEvent, type MouseEvent} from "react";
 import {uploadFhirFile} from "../services/api.service";
-import type {UploadResult} from "../types/fhir.types";
+import type {UploadResult} from "@mediportal/shared";
 import FileItem from "./FileItem";
 
 const UploadIcon: FC = () => (
