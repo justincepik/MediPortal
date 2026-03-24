@@ -2,16 +2,7 @@ import path from "path";
 import { Router } from "express";
 import multer from "multer";
 import * as uploadController from "../controllers/upload.controller";
-
-const ALLOWED_EXTENSIONS = new Set([".hl7", ".json", ".xml", ".txt"]);
-const ALLOWED_MIMETYPES  = new Set([
-    "application/json",
-    "application/xml",
-    "application/octet-stream",
-    "text/plain",
-    "text/xml",
-    "text/hl7v2",
-]);
+import {ALLOWED_EXTENSIONS, ALLOWED_MIMETYPES} from "../util/constants";
 
 const upload = multer({
     storage: multer.memoryStorage(),

@@ -26,3 +26,13 @@ export const SNOMED_VERSION = "http://snomed.info/sct/900000000000207008/version
 
 // OBX-Codes die Geraeteeigenschaften beschreiben (keine Messwerte)
 export const DEVICE_CODES = new Set(["182756003", "413568008"]);
+
+export const ALLOWED_EXTENSIONS = new Set([".hl7", ".json", ".xml", ".txt"]);
+export const ALLOWED_MIMETYPES  = new Set([
+    "application/json",
+    "application/xml",
+    "application/octet-stream",
+    "text/plain",
+    "text/xml",
+    "text/hl7v2",
+]);
